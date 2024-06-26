@@ -13,7 +13,7 @@ export const MainSection = ({
 }) => {
   const handleDownload = async (fileName) => {
     try {
-      console.log("Downloading file:", fileName);
+      alert("Downloading file...");
       const response = await axios.get(`${url1}/files/${fileName}`, {
         responseType: "blob", // Important: responseType 'blob' for binary data
       });

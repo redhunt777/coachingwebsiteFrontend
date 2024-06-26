@@ -9,60 +9,111 @@ export const Pyqs = ({ url }) => {
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
   const [data, setData] = useState([]);
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
-    axios.get(`${url}/auth/verify`).then((res) => {
-      if (!res.data.status) {
-        navigate("/login");
-      }
-      axios.get(`${url}/auth/data`).then((res) => {
-        if (
-          res.data.class === 11 &&
-          res.data.medium === "english" &&
-          res.data.board === "rbse"
-        ) {
-          axios.get(`${url}/pyqs/rbse/english/11`).then((res) => {
-            setData(res.data);
-          });
-        } else if (
-          res.data.class === 12 &&
-          res.data.medium === "english" &&
-          res.data.board === "rbse"
-        ) {
-          axios.get(`${url}/pyqs/rbse/english/12`).then((res) => {
-            setData(res.data);
-          });
-        } else if (
-          res.data.class === 11 &&
-          res.data.medium === "hindi" &&
-          res.data.board === "rbse"
-        ) {
-          axios.get(`${url}/pyqs/rbse/hindi/11`).then((res) => {
-            setData(res.data);
-          });
-        } else if (
-          res.data.class === 12 &&
-          res.data.medium === "hindi" &&
-          res.data.board === "rbse"
-        ) {
-          axios.get(`${url}/pyqs/rbse/hindi/12`).then((res) => {
-            setData(res.data);
-          });
-        } else if (res.data.class === 11 && res.data.board === "cbse") {
-          axios.get(`${url}/pyqs/cbse/11`).then((res) => {
-            setData(res.data);
-          });
-        } else if (res.data.class === 12 && res.data.board === "cbse") {
-          axios.get(`${url}/pyqs/cbse/12`).then((res) => {
-            setData(res.data);
-          });
+    setLoader(true);
+    axios
+      .get(`${url}/auth/verify`)
+      .then((res) => {
+        if (!res.data.status) {
+          navigate("/login");
         }
+        axios
+          .get(`${url}/auth/data`)
+          .then((res) => {
+            if (
+              res.data.class === 11 &&
+              res.data.medium === "english" &&
+              res.data.board === "rbse"
+            ) {
+              axios
+                .get(`${url}/pyqs/rbse/english/11`)
+                .then((res) => {
+                  setLoader(false);
+                  setData(res.data);
+                })
+                .catch((err) => {
+                  setLoader(false);
+                });
+            } else if (
+              res.data.class === 12 &&
+              res.data.medium === "english" &&
+              res.data.board === "rbse"
+            ) {
+              axios
+                .get(`${url}/pyqs/rbse/english/12`)
+                .then((res) => {
+                  setLoader(false);
+                  setData(res.data);
+                })
+                .catch((err) => {
+                  setLoader(false);
+                });
+            } else if (
+              res.data.class === 11 &&
+              res.data.medium === "hindi" &&
+              res.data.board === "rbse"
+            ) {
+              axios
+                .get(`${url}/pyqs/rbse/hindi/11`)
+                .then((res) => {
+                  setLoader(false);
+                  setData(res.data);
+                })
+                .catch((err) => {
+                  setLoader(false);
+                });
+            } else if (
+              res.data.class === 12 &&
+              res.data.medium === "hindi" &&
+              res.data.board === "rbse"
+            ) {
+              axios
+                .get(`${url}/pyqs/rbse/hindi/12`)
+                .then((res) => {
+                  setLoader(false);
+                  setData(res.data);
+                })
+                .catch((err) => {
+                  setLoader(false);
+                });
+            } else if (res.data.class === 11 && res.data.board === "cbse") {
+              axios
+                .get(`${url}/pyqs/cbse/11`)
+                .then((res) => {
+                  setLoader(false);
+                  setData(res.data);
+                })
+                .catch((err) => {
+                  setLoader(false);
+                });
+            } else if (res.data.class === 12 && res.data.board === "cbse") {
+              axios
+                .get(`${url}/pyqs/cbse/12`)
+                .then((res) => {
+                  setLoader(false);
+                  setData(res.data);
+                })
+                .catch((err) => {
+                  setLoader(false);
+                });
+            }
+          })
+          .catch((err) => {
+            setLoader(false);
+            navigate("/login");
+          });
+      })
+      .catch((err) => {
+        setLoader(false);
+        navigate("/login");
       });
-    });
   }, []);
 
   const handleDownload = async (fileName) => {
     try {
+      alert("Downloading started...");
       const response = await axios.get(`${url}/files/${fileName}`, {
         responseType: "blob", // Important: responseType 'blob' for binary data
       });
@@ -81,32 +132,45 @@ export const Pyqs = ({ url }) => {
       a.click();
       document.body.removeChild(a);
     } catch (error) {
-      console.log("Error downloading file:", error);
       alert("Failed to download file.");
     }
   };
 
   return (
     <div className="dashBoard">
-      <Navbar></Navbar>
+      <Navbar url={url}></Navbar>
 
-      <h1 className="h11">Pyqs Chapter Wise :</h1>
-      {data.length === 0 && <h1 className="h11">Loading...</h1>}
-
-      {data.map((item) => {
-        return (
-          <div key={item.chapter} className="container">
-            <h3>Chapter {item.chapter}</h3>
-            <h4>{item.title}</h4>
-            <button
-              className="btn btn-primary"
-              onClick={() => handleDownload(item.fileName)}
-            >
-              Download
-            </button>
+      {loader ? (
+        <div className="loader">
+          <div className="spinner-border text-light" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
-        );
-      })}
+        </div>
+      ) : (
+        <>
+          <h1 className="h11">Pyqs Chapter Wise :</h1>
+          {data.length === 0 && (
+            <h1 className="h11">
+              There is no content uploaded yet, to display here.
+            </h1>
+          )}
+
+          {data.map((item) => {
+            return (
+              <div key={item.chapter} className="container">
+                <h3>Chapter {item.chapter}</h3>
+                <h4>{item.title}</h4>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => handleDownload(item.fileName)}
+                >
+                  Download
+                </button>
+              </div>
+            );
+          })}
+        </>
+      )}
     </div>
   );
 };

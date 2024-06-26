@@ -9,58 +9,117 @@ const Notes = ({ url }) => {
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
   const [data, setData] = useState([]);
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
-    axios.get(`${url}/auth/verify`).then((res) => {
-      if (res.data.status) {
-        axios.get(`${url}/auth/data`).then((res) => {
-          if (
-            res.data.board === "rbse" &&
-            res.data.class === 11 &&
-            res.data.medium === "hindi"
-          ) {
-            axios.get(`${url}/notes/rbse/hindi/11`).then((res) => {
-              console.log(res.data);
-              setData(res.data);
+    setLoader(true);
+    axios
+      .get(`${url}/auth/verify`)
+      .then((res) => {
+        if (res.data.status) {
+          axios
+            .get(`${url}/auth/data`)
+            .then((res) => {
+              if (
+                res.data.board === "rbse" &&
+                res.data.class === 11 &&
+                res.data.medium === "hindi"
+              ) {
+                axios
+                  .get(`${url}/notes/rbse/hindi/11`)
+                  .then((res) => {
+                    setLoader(false);
+                    setData(res.data);
+                  })
+                  .catch((err) => {
+                    setLoader(false);
+                    console.log(err);
+                  });
+              } else if (
+                res.data.board === "rbse" &&
+                res.data.class === 11 &&
+                res.data.medium === "english"
+              ) {
+                axios
+                  .get(`${url}/notes/rbse/english/11`)
+                  .then((res) => {
+                    setLoader(false);
+                    setData(res.data);
+                  })
+                  .catch((err) => {
+                    setLoader(false);
+                    console.log(err);
+                  });
+              } else if (
+                res.data.board === "rbse" &&
+                res.data.class === 12 &&
+                res.data.medium === "hindi"
+              ) {
+                axios
+                  .get(`${url}/notes/rbse/hindi/12`)
+                  .then((res) => {
+                    setLoader(false);
+                    setData(res.data);
+                  })
+                  .catch((err) => {
+                    setLoader(false);
+                    console.log(err);
+                  });
+              } else if (
+                res.data.board === "rbse" &&
+                res.data.class === 12 &&
+                res.data.medium === "english"
+              ) {
+                axios
+                  .get(`${url}/notes/rbse/english/12`)
+                  .then((res) => {
+                    setLoader(false);
+                    setData(res.data);
+                  })
+                  .catch((err) => {
+                    setLoader(false);
+                    console.log(err);
+                  });
+              } else if (res.data.board === "cbse" && res.data.class === 11) {
+                axios
+                  .get(`${url}/notes/cbse/11`)
+                  .then((res) => {
+                    setLoader(false);
+                    setData(res.data);
+                  })
+                  .catch((err) => {
+                    setLoader(false);
+                    console.log(err);
+                  });
+              } else if (res.data.board === "cbse" && res.data.class === 12) {
+                axios
+                  .get(`${url}/notes/cbse/12`)
+                  .then((res) => {
+                    setLoader(false);
+                    setData(res.data);
+                  })
+                  .catch((err) => {
+                    setLoader(false);
+                    console.log(err);
+                  });
+              } else {
+                setLoader(false);
+                navigate("/login");
+              }
+            })
+            .catch((err) => {
+              setLoader(false);
+              navigate("/login");
             });
-          } else if (
-            res.data.board === "rbse" &&
-            res.data.class === 11 &&
-            res.data.medium === "english"
-          ) {
-            axios.get(`${url}/notes/rbse/english/11`).then((res) => {
-              setData(res.data);
-            });
-          } else if (
-            res.data.board === "rbse" &&
-            res.data.class === 12 &&
-            res.data.medium === "hindi"
-          ) {
-            axios.get(`${url}/notes/rbse/hindi/12`).then((res) => {
-              setData(res.data);
-            });
-          } else if (
-            res.data.board === "rbse" &&
-            res.data.class === 12 &&
-            res.data.medium === "english"
-          ) {
-            axios.get(`${url}/notes/rbse/english/12`).then((res) => {
-              setData(res.data);
-            });
-          } else if (res.data.board === "cbse" && res.data.class === 11) {
-            axios.get(`${url}/notes/cbse/11`).then((res) => {
-              setData(res.data);
-            });
-          } else if (res.data.board === "cbse" && res.data.class === 12) {
-            axios.get(`${url}/notes/cbse/12`).then((res) => {
-              setData(res.data);
-            });
-          }
-        });
-      } else {
+        } else {
+          setLoader(false);
+          navigate("/login");
+        }
+      })
+      .catch((err) => {
+        setLoader(false);
         navigate("/login");
-      }
-    });
+      });
   }, []);
 
   return (
@@ -68,20 +127,34 @@ const Notes = ({ url }) => {
       <div className="dashBoard">
         <Navbar url={url}></Navbar>
 
-        {data.length === 0 && <h1 className="h11">Loading...</h1>}
-        {data.map((item) => {
-          return (
-            <MainSection
-              key={item.chapNum}
-              chapName={item.title}
-              chapNum={item.chapter}
-              content={item.content}
-              img_name={item.img_name}
-              fileName={item.fileName}
-              url1={url}
-            ></MainSection>
-          );
-        })}
+        {loader ? (
+          <div className="loader">
+            <div className="spinner-border text-light" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        ) : (
+          <>
+            {data.length === 0 && (
+              <h1 className="h11">
+                There is no content uploaded yet, to display here.
+              </h1>
+            )}
+            {data.map((item) => {
+              return (
+                <MainSection
+                  key={item.chapNum}
+                  chapName={item.title}
+                  chapNum={item.chapter}
+                  content={item.content}
+                  img_name={item.img_name}
+                  fileName={item.fileName}
+                  url1={url}
+                ></MainSection>
+              );
+            })}
+          </>
+        )}
       </div>
     </>
   );

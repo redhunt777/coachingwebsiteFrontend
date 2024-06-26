@@ -2,19 +2,28 @@ import "./login.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const Login = ({ url }) => {
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
 
+  const [loader, setLoader] = useState(true);
+
   useEffect(() => {
-    axios.get(`${url}/auth/verify`).then((res) => {
-      if (res.data.status) {
-        console.log(res.data);
-        navigate("/notes");
-      }
-    });
+    setLoader(true);
+    axios
+      .get(`${url}/auth/verify`)
+      .then((res) => {
+        setLoader(false);
+        if (res.data.status) {
+          navigate("/notes");
+        }
+      })
+      .catch((err) => {
+        setLoader(false);
+        console.log(err);
+      });
   }, []);
 
   const handleJoin = () => {
@@ -23,7 +32,7 @@ export const Login = ({ url }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Please wait while we log you in");
+    setLoader(true);
     const data = {
       email: e.target.email.value,
       password: e.target.password.value,
@@ -32,13 +41,18 @@ export const Login = ({ url }) => {
       .post(`${url}/auth/login`, data)
       .then((res) => {
         if (res.data.status) {
+          setLoader(false);
           navigate("/notes");
         } else {
+          setLoader(false);
           alert("Invalid credentials");
         }
       })
       .catch((err) => {
+        setLoader(false);
         console.log(err);
+        alert("Something went wrong! Please try again.");
+        navigate("/login");
       });
   };
 
@@ -62,29 +76,38 @@ export const Login = ({ url }) => {
           </button>
         </div>
       </div>
-      <div className="signupContainer">
-        <div className="signup">
-          <h1>Log In</h1>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="email">Email:</label>
-            <input type="email" name="email" required></input>
-            <label htmlFor="password">Password:</label>
-            <input type="password" name="password"></input>
-            <div style={{ width: "fit-content" }}>
-              <input type="submit" value="Submit" className="btn btn-dark" />
-            </div>
-          </form>
 
-          <div className="footer">
-            <span>
-              <Link to="/signup">New user?</Link>
-            </span>
-            <span>
-              <Link to="/forgotpassword">Forgot Password?</Link>
-            </span>
+      {loader ? (
+        <div className="loader">
+          <div className="spinner-border text-dark" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="signupContainer">
+          <div className="signup">
+            <h1>Log In</h1>
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="email">Email:</label>
+              <input type="email" name="email" required></input>
+              <label htmlFor="password">Password:</label>
+              <input type="password" name="password"></input>
+              <div style={{ width: "fit-content" }}>
+                <input type="submit" value="Submit" className="btn btn-dark" />
+              </div>
+            </form>
+
+            <div className="footer">
+              <span>
+                <Link to="/signup">New user?</Link>
+              </span>
+              <span>
+                <Link to="/forgotpassword">Forgot Password?</Link>
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

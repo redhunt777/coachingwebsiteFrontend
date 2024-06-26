@@ -30,6 +30,13 @@
   width: 100vw;
   min-height: 100vh;
 
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 100px);
+  }
+
   .ncertContainer {
     display: flex;
     align-items: center;
