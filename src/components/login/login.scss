@@ -1,0 +1,123 @@
+.signupBG {
+  background: linear-gradient(
+      346deg,
+      rgba(55, 55, 55, 0.04) 0%,
+      rgba(55, 55, 55, 0.04) 22%,
+      rgba(140, 140, 140, 0.04) 22%,
+      rgba(140, 140, 140, 0.04) 69%,
+      rgba(225, 225, 225, 0.04) 69%,
+      rgba(225, 225, 225, 0.04) 100%
+    ),
+    linear-gradient(
+      31deg,
+      rgba(55, 55, 55, 0.04) 0%,
+      rgba(55, 55, 55, 0.04) 42%,
+      rgba(140, 140, 140, 0.04) 42%,
+      rgba(140, 140, 140, 0.04) 85%,
+      rgba(225, 225, 225, 0.04) 85%,
+      rgba(225, 225, 225, 0.04) 100%
+    ),
+    linear-gradient(
+      55deg,
+      rgba(55, 55, 55, 0.04) 0%,
+      rgba(55, 55, 55, 0.04) 13%,
+      rgba(140, 140, 140, 0.04) 13%,
+      rgba(140, 140, 140, 0.04) 72%,
+      rgba(225, 225, 225, 0.04) 72%,
+      rgba(225, 225, 225, 0.04) 100%
+    ),
+    linear-gradient(90deg, rgb(0, 0, 0), rgb(0, 0, 0));
+  width: 100vw;
+  height: 100vh;
+
+  .signupContainer {
+    width: 40%;
+    margin-right: 0;
+    float: right;
+    background-color: white;
+    height: 100vh;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .signup {
+      padding: 40px;
+      h1 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: rgba(0, 0, 0, 0.9);
+        text-align: center;
+      }
+      form {
+        margin-bottom: 15px;
+        label {
+          font-size: 1rem;
+          font-weight: 600;
+          color: #000;
+        }
+        input {
+          width: 100%;
+          padding: 6px;
+          border-radius: 5px;
+          border: 1px solid #000;
+          margin-top: 5px;
+          margin-bottom: 5px;
+        }
+      }
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        span {
+          color: blue;
+          font-size: 0.9rem;
+          display: block;
+          float: right;
+          margin-right: 10px;
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .heroSection {
+    width: 60%;
+    float: left;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .heroSection__content {
+      width: 70%;
+      h1 {
+        font-size: 1.8rem;
+        position: absolute;
+        font-weight: 600;
+        color: white;
+        top: 20px;
+        left: 40px;
+      }
+
+      h2 {
+        font-size: 3rem;
+        font-weight: 700;
+        color: white;
+        line-height: 2.8rem;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 1.2rem;
+        color: white;
+        margin-bottom: 20px;
+        margin-top: 20px;
+      }
+    }
+  }
+}

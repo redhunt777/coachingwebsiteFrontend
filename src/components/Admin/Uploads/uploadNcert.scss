@@ -1,0 +1,20 @@
+.ncertUploadContainer {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px;
+
+  div {
+    width: fit-content;
+  }
+
+  input {
+    margin-right: 5px;
+  }
+
+  button {
+    width: fit-content;
+  }
+}

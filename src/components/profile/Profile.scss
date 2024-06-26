@@ -1,0 +1,182 @@
+@import "../../app.scss";
+
+.profileContainer {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: linear-gradient(
+      346deg,
+      rgba(55, 55, 55, 0.04) 0%,
+      rgba(55, 55, 55, 0.04) 22%,
+      rgba(140, 140, 140, 0.04) 22%,
+      rgba(140, 140, 140, 0.04) 69%,
+      rgba(225, 225, 225, 0.04) 69%,
+      rgba(225, 225, 225, 0.04) 100%
+    ),
+    linear-gradient(
+      31deg,
+      rgba(55, 55, 55, 0.04) 0%,
+      rgba(55, 55, 55, 0.04) 42%,
+      rgba(140, 140, 140, 0.04) 42%,
+      rgba(140, 140, 140, 0.04) 85%,
+      rgba(225, 225, 225, 0.04) 85%,
+      rgba(225, 225, 225, 0.04) 100%
+    ),
+    linear-gradient(
+      55deg,
+      rgba(55, 55, 55, 0.04) 0%,
+      rgba(55, 55, 55, 0.04) 13%,
+      rgba(140, 140, 140, 0.04) 13%,
+      rgba(140, 140, 140, 0.04) 72%,
+      rgba(225, 225, 225, 0.04) 72%,
+      rgba(225, 225, 225, 0.04) 100%
+    ),
+    linear-gradient(90deg, rgb(0, 0, 0), rgb(0, 0, 0));
+
+  @include mobile {
+    padding: 60px 0;
+    align-items: flex-start;
+  }
+  @include tablet {
+    padding: 60px 0;
+    align-items: flex-start;
+  }
+
+  .closeB {
+    position: absolute;
+    top: 15px;
+    left: 25px;
+
+    @include mobile {
+      top: 10px;
+      left: 10px;
+    }
+
+    @include tablet {
+      top: 10px;
+      left: 10px;
+    }
+  }
+
+  .profile {
+    background-color: white;
+    border-radius: 12px;
+    width: 80%;
+    height: fit-content;
+    border: 1px solid white;
+    display: flex;
+    position: relative;
+    padding: 5% 0;
+
+    @include mobile {
+      flex-direction: column;
+      box-shadow: none;
+    }
+
+    @include tablet {
+      flex-direction: column;
+      box-shadow: none;
+    }
+
+    .vL {
+      height: auto;
+      box-shadow: inset 1px 1px 1px 1px;
+
+      @include mobile {
+        display: none !important;
+      }
+      @include tablet {
+        display: none !important;
+      }
+    }
+
+    .textContainer {
+      flex: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 25px;
+      flex-direction: column;
+      color: rgb(72, 71, 71);
+
+      @include mobile {
+        width: 100%;
+      }
+
+      @include tablet {
+        width: 100%;
+      }
+
+      .heading {
+        width: 80%;
+
+        .h21 {
+          font-weight: 600;
+        }
+      }
+      .inputField {
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+
+        @include mobile {
+          flex-wrap: wrap;
+        }
+
+        label {
+          width: 15%;
+          min-width: fit-content;
+          margin: auto 0;
+          font-weight: 500;
+        }
+
+        select {
+          width: 80%;
+          min-width: fit-content;
+        }
+        input {
+          width: 80%;
+          min-width: fit-content;
+        }
+      }
+      .buttonContainer {
+        width: 75%;
+        display: flex;
+        justify-content: space-between;
+
+        button {
+          float: right;
+        }
+      }
+    }
+
+    .imageContainer {
+      flex: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      @include mobile {
+        width: 100%;
+        box-shadow: none;
+        height: auto;
+      }
+
+      @include tablet {
+        width: 100%;
+        height: auto;
+      }
+      img {
+        object-fit: cover;
+        aspect-ratio: 1/1;
+        width: 220px;
+        margin-bottom: 30px;
+        border-radius: 50%;
+      }
+    }
+  }
+}

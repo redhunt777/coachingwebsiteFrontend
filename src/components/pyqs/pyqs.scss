@@ -1,0 +1,56 @@
+.dashBoard {
+  background: linear-gradient(
+      346deg,
+      rgba(55, 55, 55, 0.04) 0%,
+      rgba(55, 55, 55, 0.04) 22%,
+      rgba(140, 140, 140, 0.04) 22%,
+      rgba(140, 140, 140, 0.04) 69%,
+      rgba(225, 225, 225, 0.04) 69%,
+      rgba(225, 225, 225, 0.04) 100%
+    ),
+    linear-gradient(
+      31deg,
+      rgba(55, 55, 55, 0.04) 0%,
+      rgba(55, 55, 55, 0.04) 42%,
+      rgba(140, 140, 140, 0.04) 42%,
+      rgba(140, 140, 140, 0.04) 85%,
+      rgba(225, 225, 225, 0.04) 85%,
+      rgba(225, 225, 225, 0.04) 100%
+    ),
+    linear-gradient(
+      55deg,
+      rgba(55, 55, 55, 0.04) 0%,
+      rgba(55, 55, 55, 0.04) 13%,
+      rgba(140, 140, 140, 0.04) 13%,
+      rgba(140, 140, 140, 0.04) 72%,
+      rgba(225, 225, 225, 0.04) 72%,
+      rgba(225, 225, 225, 0.04) 100%
+    ),
+    linear-gradient(90deg, rgb(0, 0, 0), rgb(0, 0, 0));
+  width: 100%;
+  min-height: 100vh;
+  background-color: black;
+
+  .h11 {
+    color: white;
+    width: 80%;
+    margin: auto;
+    font-size: 2.5rem;
+    font-weight: 700;
+    padding-top: 40px;
+  }
+
+  .container {
+    width: 80%;
+    color: white;
+    margin: auto;
+
+    h3 {
+      margin-top: 40px;
+      font-size: 1.5rem;
+    }
+    h4 {
+      font-size: 1.2rem;
+    }
+  }
+}
