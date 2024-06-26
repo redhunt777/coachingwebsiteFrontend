@@ -40,7 +40,7 @@ export const Navbar = ({ url }) => {
   };
 
   const handleNotes = () => {
-    navigate("/");
+    navigate("/notes");
   };
 
   const handlePyqs = () => {

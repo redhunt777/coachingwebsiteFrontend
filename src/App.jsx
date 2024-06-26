@@ -19,7 +19,8 @@ function App() {
         <Routes>
           <Route path="/signup" element={<Signup url={url}></Signup>}></Route>
           <Route path="/login" element={<Login url={url}></Login>}></Route>
-          <Route path="/" element={<Notes url={url}></Notes>}></Route>
+          <Route path="/" element={<Signup url={url}></Signup>}></Route>
+          <Route path="/notes" element={<Notes url={url}></Notes>}></Route>
           <Route
             path="/profile"
             element={<Profile url={url}></Profile>}

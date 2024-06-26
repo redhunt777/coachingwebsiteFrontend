@@ -12,7 +12,7 @@ export const Login = ({ url }) => {
     axios.get(`${url}/auth/verify`).then((res) => {
       if (res.data.status) {
         console.log(res.data);
-        navigate("/");
+        navigate("/notes");
       }
     });
   }, []);
@@ -31,10 +31,8 @@ export const Login = ({ url }) => {
     axios
       .post(`${url}/auth/login`, data)
       .then((res) => {
-        console.log(res.data.status);
-        console.log(res.data.message);
         if (res.data.status) {
-          navigate("/");
+          navigate("/notes");
         } else {
           alert("Invalid credentials");
         }

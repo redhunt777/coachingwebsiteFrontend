@@ -13,7 +13,7 @@ export const Signup = ({ url }) => {
   useEffect(() => {
     axios.get(`${url}/auth/verify`).then((res) => {
       if (res.data.status) {
-        navigate("/");
+        navigate("/notes");
       }
     });
   }, []);

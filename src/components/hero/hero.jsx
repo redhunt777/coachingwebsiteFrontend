@@ -4,11 +4,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Navbar } from "../navBar/navbar";
 import { MainSection } from "../mainSection/MainSection";
-import FileUploaderPyqs from "../Admin/Uploads/UploadPyqs";
-import FileUploaderNcert from "../Admin/Uploads/UploadNcert";
-import FileUploaderNotes from "../Admin/Uploads/UploadNotes";
-import FileUploaderSyllabus from "../Admin/Uploads/UploadSyllabus";
-import FileUploaderDpp from "../Admin/Uploads/UploadDpp";
 
 const Notes = ({ url }) => {
   const navigate = useNavigate();
@@ -87,11 +82,6 @@ const Notes = ({ url }) => {
             ></MainSection>
           );
         })}
-        <FileUploaderPyqs url={url}></FileUploaderPyqs>
-        <FileUploaderNcert url={url}></FileUploaderNcert>
-        <FileUploaderNotes url={url}></FileUploaderNotes>
-        <FileUploaderSyllabus url={url}></FileUploaderSyllabus>
-        <FileUploaderDpp url={url}></FileUploaderDpp>
       </div>
     </>
   );

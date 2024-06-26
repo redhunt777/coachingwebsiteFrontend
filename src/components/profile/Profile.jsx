@@ -35,7 +35,7 @@ export const Profile = ({ url }) => {
   }, []);
 
   const handleClose = () => {
-    navigate("/");
+    navigate("/notes");
   };
 
   const handleLogout = () => {
