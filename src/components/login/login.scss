@@ -1,3 +1,4 @@
+@import "../../app.scss";
 .signupBG {
   background: linear-gradient(
       346deg,
@@ -30,6 +31,13 @@
   width: 100vw;
   height: 100vh;
 
+  @include mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
   .signupContainer {
     width: 40%;
     margin-right: 0;
@@ -40,6 +48,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @include mobile {
+      width: 90%;
+      align-items: flex-start;
+      height: auto;
+    }
 
     .signup {
       padding: 40px;
@@ -93,6 +107,10 @@
     justify-content: center;
     align-items: center;
 
+    @include mobile {
+      width: 100%;
+    }
+
     .heroSection__content {
       width: 70%;
       h1 {
@@ -102,6 +120,12 @@
         color: white;
         top: 20px;
         left: 40px;
+
+        @include tablet {
+          font-size: 1.5rem;
+          top: 40px;
+          left: 40px;
+        }
       }
 
       h2 {
@@ -110,6 +134,11 @@
         color: white;
         line-height: 2.8rem;
         margin-bottom: 20px;
+
+        @include mobile {
+          font-size: 2.5rem;
+          line-height: 2.3rem;
+        }
       }
 
       p {

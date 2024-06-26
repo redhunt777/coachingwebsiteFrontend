@@ -136,7 +136,12 @@ export const Signup = ({ url }) => {
               </label>
             </div>
             <div style={{ width: "fit-content" }}>
-              <input type="submit" value="Submit" className="btn btn-dark" />
+              <input
+                type="submit"
+                value="Submit"
+                className="btn btn-dark"
+                style={{ marginTop: "10px" }}
+              />
             </div>
           </form>
 
