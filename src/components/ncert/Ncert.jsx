@@ -19,55 +19,48 @@ export const Ncert = ({ url }) => {
           setLoader(false);
           navigate("/login");
         }
-        axios
-          .get(`${url}/auth/data`)
-          .then((res) => {
-            if (res.data.class === 11 && res.data.medium === "english") {
-              axios
-                .get(`${url}/ncert/english/11`)
-                .then((res) => {
-                  setLoader(false);
-                  setData(res.data);
-                })
-                .catch((err) => {
-                  setLoader(false);
-                });
-            } else if (res.data.class === 12 && res.data.medium === "english") {
-              axios
-                .get(`${url}/ncert/english/12`)
-                .then((res) => {
-                  setLoader(false);
-                  setData(res.data);
-                })
-                .catch((err) => {
-                  setLoader(false);
-                });
-            } else if (res.data.class === 11 && res.data.medium === "hindi") {
-              axios
-                .get(`${url}/ncert/hindi/11`)
-                .then((res) => {
-                  setLoader(false);
-                  setData(res.data);
-                })
-                .catch((err) => {
-                  setLoader(false);
-                });
-            } else if (res.data.class === 12 && res.data.medium === "hindi") {
-              axios
-                .get(`${url}/ncert/hindi/12`)
-                .then((res) => {
-                  setLoader(false);
-                  setData(res.data);
-                })
-                .catch((err) => {
-                  setLoader(false);
-                });
-            }
-          })
-          .catch((err) => {
-            setLoader(false);
-            navigate("/login");
-          });
+
+        if (res.data.class === 11 && res.data.medium === "english") {
+          axios
+            .get(`${url}/ncert/english/11`)
+            .then((res) => {
+              setLoader(false);
+              setData(res.data);
+            })
+            .catch((err) => {
+              setLoader(false);
+            });
+        } else if (res.data.class === 12 && res.data.medium === "english") {
+          axios
+            .get(`${url}/ncert/english/12`)
+            .then((res) => {
+              setLoader(false);
+              setData(res.data);
+            })
+            .catch((err) => {
+              setLoader(false);
+            });
+        } else if (res.data.class === 11 && res.data.medium === "hindi") {
+          axios
+            .get(`${url}/ncert/hindi/11`)
+            .then((res) => {
+              setLoader(false);
+              setData(res.data);
+            })
+            .catch((err) => {
+              setLoader(false);
+            });
+        } else if (res.data.class === 12 && res.data.medium === "hindi") {
+          axios
+            .get(`${url}/ncert/hindi/12`)
+            .then((res) => {
+              setLoader(false);
+              setData(res.data);
+            })
+            .catch((err) => {
+              setLoader(false);
+            });
+        }
       })
       .catch((err) => {
         setLoader(false);

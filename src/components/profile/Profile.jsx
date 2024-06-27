@@ -20,18 +20,22 @@ export const Profile = ({ url }) => {
   const [mediumChange, setMediumChange] = useState("");
 
   useEffect(() => {
-    axios.get(`${url}/auth/verify`).then((res) => {
-      if (!res.data.status) {
-        navigate("/login");
-      }
-      axios.get(`${url}/auth/data`).then((res) => {
+    axios
+      .get(`${url}/auth/verify`)
+      .then((res) => {
+        if (!res.data.status) {
+          navigate("/login");
+        }
         setEmail(res.data.email);
         setName(res.data.name);
         setBoard(res.data.board);
         setClass(res.data.class);
         setMedium(res.data.medium);
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate("/login");
       });
-    });
   }, []);
 
   const handleClose = () => {
@@ -39,15 +43,21 @@ export const Profile = ({ url }) => {
   };
 
   const handleLogout = () => {
-    axios.get(`${url}/auth/logout`).then((res) => {
-      console.log(res.data);
-      if (res.data.status) {
-        navigate("/login");
-      } else {
-        console.log(res.data.message);
+    axios
+      .get(`${url}/auth/logout`)
+      .then((res) => {
+        if (res.data.status) {
+          navigate("/login");
+        } else {
+          console.log(res.data.message);
+          alert("Something went wrong");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
         alert("Something went wrong");
-      }
-    });
+        navigate("/notes");
+      });
   };
 
   const handleEdit = () => {
@@ -62,18 +72,23 @@ export const Profile = ({ url }) => {
         email: email,
       };
 
-      axios.patch(`${url}/auth/update`, data).then((res) => {
-        console.log(res.data.data);
-        if (res.data.status) {
-          setName(res.data.data.name);
-          setBoard(res.data.data.board);
-          setClass(res.data.data.class);
-          setMedium(res.data.data.medium);
-        } else {
-          console.log(res.data.message);
+      axios
+        .patch(`${url}/auth/update`, data)
+        .then((res) => {
+          if (res.data.status) {
+            setName(res.data.data.name);
+            setBoard(res.data.data.board);
+            setClass(res.data.data.class);
+            setMedium(res.data.data.medium);
+          } else {
+            console.log(res.data.message);
+            alert("Something went wrong");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
           alert("Something went wrong");
-        }
-      });
+        });
     }
   };
 
@@ -90,11 +105,11 @@ export const Profile = ({ url }) => {
         <div className="imageContainer">
           <img src="/person.png" alt="demo profile image" />
           <div className="mb-3">
-            <input
+            {/* <input
               className="form-control form-control-sm "
               id="formFileSm"
               type="file"
-            />
+            /> */}
           </div>
         </div>
         <div className="d-flex vL">

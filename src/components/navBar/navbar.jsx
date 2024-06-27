@@ -52,39 +52,47 @@ export const Navbar = ({ url }) => {
   };
 
   const handleSyllabus = async () => {
-    axios.get(`${url}/auth/data`).then(async (res) => {
-      // Mark the callback function as async
-      const data1 = res.data;
-      axios.post(`${url}/syllabus`, data1).then(async (res) => {
-        // Mark the callback function as async
-        const fileName = res.data[0].fileName;
-        if (fileName === undefined) {
-          alert("Syllabus is not uploaded yet! Please try again later");
-          return;
-        }
-        try {
-          const response = await axios.get(`${url}/files/${fileName}`, {
-            responseType: "blob", // Important: responseType 'blob' for binary data
-          });
+    axios
+      .get(`${url}/auth/verify`)
+      .then(async (res) => {
+        const data1 = res.data;
+        alert("Downloading started...");
+        axios
+          .post(`${url}/syllabus`, data1)
+          .then(async (res) => {
+            const fileName = res.data[0].fileName;
+            console.log(fileName);
+            try {
+              const response = await axios.get(`${url}/files/${fileName}`, {
+                responseType: "blob", // Important: responseType 'blob' for binary data
+              });
 
-          // Create a blob URL for the file data
-          const blob = new Blob([response.data], {
-            type: response.headers["content-type"],
+              // Create a blob URL for the file data
+              const blob = new Blob([response.data], {
+                type: response.headers["content-type"],
+              });
+              const urlLocal = window.URL.createObjectURL(blob);
+              // Create a link element and click it to trigger the download
+              const a = document.createElement("a");
+              a.href = urlLocal;
+              a.download = fileName;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+            } catch (error) {
+              console.log("Error downloading file:", error);
+              alert("Failed to download file.");
+            }
+          })
+          .catch((err) => {
+            alert(
+              "Syllabus is not available right now. Please try again later."
+            );
           });
-          const urlLocal = window.URL.createObjectURL(blob);
-          // Create a link element and click it to trigger the download
-          const a = document.createElement("a");
-          a.href = urlLocal;
-          a.download = fileName;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        } catch (error) {
-          console.log("Error downloading file:", error);
-          alert("Failed to download file.");
-        }
+      })
+      .catch((err) => {
+        navigate("/login");
       });
-    });
   };
 
   return (

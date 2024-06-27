@@ -19,91 +19,87 @@ export const Pyqs = ({ url }) => {
         if (!res.data.status) {
           navigate("/login");
         }
-        axios
-          .get(`${url}/auth/data`)
-          .then((res) => {
-            if (
-              res.data.class === 11 &&
-              res.data.medium === "english" &&
-              res.data.board === "rbse"
-            ) {
-              axios
-                .get(`${url}/pyqs/rbse/english/11`)
-                .then((res) => {
-                  setLoader(false);
-                  setData(res.data);
-                })
-                .catch((err) => {
-                  setLoader(false);
-                });
-            } else if (
-              res.data.class === 12 &&
-              res.data.medium === "english" &&
-              res.data.board === "rbse"
-            ) {
-              axios
-                .get(`${url}/pyqs/rbse/english/12`)
-                .then((res) => {
-                  setLoader(false);
-                  setData(res.data);
-                })
-                .catch((err) => {
-                  setLoader(false);
-                });
-            } else if (
-              res.data.class === 11 &&
-              res.data.medium === "hindi" &&
-              res.data.board === "rbse"
-            ) {
-              axios
-                .get(`${url}/pyqs/rbse/hindi/11`)
-                .then((res) => {
-                  setLoader(false);
-                  setData(res.data);
-                })
-                .catch((err) => {
-                  setLoader(false);
-                });
-            } else if (
-              res.data.class === 12 &&
-              res.data.medium === "hindi" &&
-              res.data.board === "rbse"
-            ) {
-              axios
-                .get(`${url}/pyqs/rbse/hindi/12`)
-                .then((res) => {
-                  setLoader(false);
-                  setData(res.data);
-                })
-                .catch((err) => {
-                  setLoader(false);
-                });
-            } else if (res.data.class === 11 && res.data.board === "cbse") {
-              axios
-                .get(`${url}/pyqs/cbse/11`)
-                .then((res) => {
-                  setLoader(false);
-                  setData(res.data);
-                })
-                .catch((err) => {
-                  setLoader(false);
-                });
-            } else if (res.data.class === 12 && res.data.board === "cbse") {
-              axios
-                .get(`${url}/pyqs/cbse/12`)
-                .then((res) => {
-                  setLoader(false);
-                  setData(res.data);
-                })
-                .catch((err) => {
-                  setLoader(false);
-                });
-            }
-          })
-          .catch((err) => {
-            setLoader(false);
-            navigate("/login");
-          });
+
+        if (
+          res.data.class === 11 &&
+          res.data.medium === "english" &&
+          res.data.board === "rbse"
+        ) {
+          axios
+            .get(`${url}/pyqs/rbse/english/11`)
+            .then((res) => {
+              setLoader(false);
+              setData(res.data);
+            })
+            .catch((err) => {
+              setLoader(false);
+            });
+        } else if (
+          res.data.class === 12 &&
+          res.data.medium === "english" &&
+          res.data.board === "rbse"
+        ) {
+          axios
+            .get(`${url}/pyqs/rbse/english/12`)
+            .then((res) => {
+              setLoader(false);
+              setData(res.data);
+            })
+            .catch((err) => {
+              setLoader(false);
+            });
+        } else if (
+          res.data.class === 11 &&
+          res.data.medium === "hindi" &&
+          res.data.board === "rbse"
+        ) {
+          axios
+            .get(`${url}/pyqs/rbse/hindi/11`)
+            .then((res) => {
+              setLoader(false);
+              setData(res.data);
+            })
+            .catch((err) => {
+              setLoader(false);
+            });
+        } else if (
+          res.data.class === 12 &&
+          res.data.medium === "hindi" &&
+          res.data.board === "rbse"
+        ) {
+          axios
+            .get(`${url}/pyqs/rbse/hindi/12`)
+            .then((res) => {
+              setLoader(false);
+              setData(res.data);
+            })
+            .catch((err) => {
+              setLoader(false);
+            });
+        } else if (res.data.class === 11 && res.data.board === "cbse") {
+          axios
+            .get(`${url}/pyqs/cbse/11`)
+            .then((res) => {
+              setLoader(false);
+              setData(res.data);
+            })
+            .catch((err) => {
+              setLoader(false);
+            });
+        } else if (res.data.class === 12 && res.data.board === "cbse") {
+          axios
+            .get(`${url}/pyqs/cbse/12`)
+            .then((res) => {
+              setLoader(false);
+              setData(res.data);
+            })
+            .catch((err) => {
+              setLoader(false);
+            });
+        } else {
+          setLoader(false);
+          navigate("/notes");
+        }
       })
       .catch((err) => {
         setLoader(false);

@@ -21,9 +21,7 @@ export const Dpp = ({ url }) => {
           navigate("/login");
           return;
         }
-
-        const authDataRes = await axios.get(`${url}/auth/data`);
-        const { class: userClass, medium, board } = authDataRes.data;
+        const { class: userClass, medium, board } = verifyRes.data;
 
         let endpoint = "";
 

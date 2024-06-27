@@ -17,100 +17,92 @@ const Notes = ({ url }) => {
       .get(`${url}/auth/verify`)
       .then((res) => {
         if (res.data.status) {
-          axios
-            .get(`${url}/auth/data`)
-            .then((res) => {
-              if (
-                res.data.board === "rbse" &&
-                res.data.class === 11 &&
-                res.data.medium === "hindi"
-              ) {
-                axios
-                  .get(`${url}/notes/rbse/hindi/11`)
-                  .then((res) => {
-                    setLoader(false);
-                    setData(res.data);
-                  })
-                  .catch((err) => {
-                    setLoader(false);
-                    console.log(err);
-                  });
-              } else if (
-                res.data.board === "rbse" &&
-                res.data.class === 11 &&
-                res.data.medium === "english"
-              ) {
-                axios
-                  .get(`${url}/notes/rbse/english/11`)
-                  .then((res) => {
-                    setLoader(false);
-                    setData(res.data);
-                  })
-                  .catch((err) => {
-                    setLoader(false);
-                    console.log(err);
-                  });
-              } else if (
-                res.data.board === "rbse" &&
-                res.data.class === 12 &&
-                res.data.medium === "hindi"
-              ) {
-                axios
-                  .get(`${url}/notes/rbse/hindi/12`)
-                  .then((res) => {
-                    setLoader(false);
-                    setData(res.data);
-                  })
-                  .catch((err) => {
-                    setLoader(false);
-                    console.log(err);
-                  });
-              } else if (
-                res.data.board === "rbse" &&
-                res.data.class === 12 &&
-                res.data.medium === "english"
-              ) {
-                axios
-                  .get(`${url}/notes/rbse/english/12`)
-                  .then((res) => {
-                    setLoader(false);
-                    setData(res.data);
-                  })
-                  .catch((err) => {
-                    setLoader(false);
-                    console.log(err);
-                  });
-              } else if (res.data.board === "cbse" && res.data.class === 11) {
-                axios
-                  .get(`${url}/notes/cbse/11`)
-                  .then((res) => {
-                    setLoader(false);
-                    setData(res.data);
-                  })
-                  .catch((err) => {
-                    setLoader(false);
-                    console.log(err);
-                  });
-              } else if (res.data.board === "cbse" && res.data.class === 12) {
-                axios
-                  .get(`${url}/notes/cbse/12`)
-                  .then((res) => {
-                    setLoader(false);
-                    setData(res.data);
-                  })
-                  .catch((err) => {
-                    setLoader(false);
-                    console.log(err);
-                  });
-              } else {
+          if (
+            res.data.board === "rbse" &&
+            res.data.class === 11 &&
+            res.data.medium === "hindi"
+          ) {
+            axios
+              .get(`${url}/notes/rbse/hindi/11`)
+              .then((res) => {
                 setLoader(false);
-                navigate("/login");
-              }
-            })
-            .catch((err) => {
-              setLoader(false);
-              navigate("/login");
-            });
+                setData(res.data);
+              })
+              .catch((err) => {
+                setLoader(false);
+                console.log(err);
+              });
+          } else if (
+            res.data.board === "rbse" &&
+            res.data.class === 11 &&
+            res.data.medium === "english"
+          ) {
+            axios
+              .get(`${url}/notes/rbse/english/11`)
+              .then((res) => {
+                setLoader(false);
+                setData(res.data);
+              })
+              .catch((err) => {
+                setLoader(false);
+                console.log(err);
+              });
+          } else if (
+            res.data.board === "rbse" &&
+            res.data.class === 12 &&
+            res.data.medium === "hindi"
+          ) {
+            axios
+              .get(`${url}/notes/rbse/hindi/12`)
+              .then((res) => {
+                setLoader(false);
+                setData(res.data);
+              })
+              .catch((err) => {
+                setLoader(false);
+                console.log(err);
+              });
+          } else if (
+            res.data.board === "rbse" &&
+            res.data.class === 12 &&
+            res.data.medium === "english"
+          ) {
+            axios
+              .get(`${url}/notes/rbse/english/12`)
+              .then((res) => {
+                setLoader(false);
+                setData(res.data);
+              })
+              .catch((err) => {
+                setLoader(false);
+                console.log(err);
+              });
+          } else if (res.data.board === "cbse" && res.data.class === 11) {
+            axios
+              .get(`${url}/notes/cbse/11`)
+              .then((res) => {
+                setLoader(false);
+                setData(res.data);
+              })
+              .catch((err) => {
+                setLoader(false);
+                console.log(err);
+              });
+          } else if (res.data.board === "cbse" && res.data.class === 12) {
+            axios
+              .get(`${url}/notes/cbse/12`)
+              .then((res) => {
+                setLoader(false);
+                setData(res.data);
+              })
+              .catch((err) => {
+                setLoader(false);
+                console.log(err);
+              });
+          } else {
+            setLoader(false);
+            navigate("/login");
+          }
         } else {
           setLoader(false);
           navigate("/login");

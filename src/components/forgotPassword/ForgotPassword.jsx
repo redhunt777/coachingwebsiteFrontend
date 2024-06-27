@@ -23,7 +23,7 @@ export const ForgotPassword = ({ url }) => {
         }
       })
       .catch((err) => {
-        alert(err);
+        alert("Cannot send mail, try again later !");
       });
   };
   return (
