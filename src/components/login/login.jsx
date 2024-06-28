@@ -45,7 +45,7 @@ export const Login = ({ url }) => {
           navigate("/notes");
         } else {
           setLoader(false);
-          alert("Invalid credentials");
+          alert(res.data.message);
         }
       })
       .catch((err) => {

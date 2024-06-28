@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { calcLength, easeIn, easeOut, motion } from "framer-motion";
+import { easeIn, easeOut, motion } from "framer-motion";
 
 const varientsX = {
   bottomX: {
@@ -57,8 +57,41 @@ export const Signup = ({ url }) => {
   const [selectedBoard, setSelectedBoard] = useState("");
   const [selectedMedium, setSelectedMedium] = useState("english");
   const [loader, setLoader] = useState(true);
+  const [disabled, setDisabled] = useState(true);
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
 
   axios.defaults.withCredentials = true;
+  const handleChange = (e) => {
+    const email = e.target.value;
+    setEmail(email);
+    const EmailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (EmailRegex.test(email)) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  };
+
+  const handleOtp = (e) => {
+    e.preventDefault();
+    setDisabled(true);
+    axios
+      .post(`${url}/auth/generate-otp`, { email })
+      .then((res) => {
+        if (res.data.status) {
+          alert(res.data.message);
+        } else {
+          alert(res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setDisabled(false);
+        alert("Something went wrong! Please try again.");
+      });
+  };
+
   useEffect(() => {
     setLoader(true);
     axios
@@ -89,16 +122,32 @@ export const Signup = ({ url }) => {
       class: e.target.class.value,
       board: e.target.board.value,
       medium: selectedMedium,
+      otp: otp,
     };
+
     axios
-      .post(`${url}/auth/signup`, data)
+      .post(`${url}/auth/verify-otp`, data)
       .then((res) => {
-        setLoader(false);
         if (res.data.status) {
-          navigate("/login");
+          axios
+            .post(`${url}/auth/signup`, data)
+            .then((res) => {
+              setLoader(false);
+              if (res.data.status) {
+                navigate("/login");
+              } else {
+                alert(res.data.message);
+                navigate("/signup");
+              }
+            })
+            .catch((err) => {
+              setLoader(false);
+              alert("Something went wrong! Please try again.");
+              navigate("/signup");
+            });
         } else {
+          setLoader(false);
           alert(res.data.message);
-          navigate("/signup");
         }
       })
       .catch((err) => {
@@ -229,17 +278,42 @@ export const Signup = ({ url }) => {
                 <label htmlFor="text">Name:</label>
                 <input type="text" name="name" required></input>
                 <label htmlFor="email">Email:</label>
-                <input type="email" name="email" required></input>
+                <input
+                  type="email"
+                  name="email"
+                  onChange={(e) => handleChange(e)}
+                  required
+                ></input>
+                <div style={{ width: "100%" }}>
+                  <input
+                    type="text"
+                    style={{ width: "40%" }}
+                    placeholder="Enter Otp"
+                    onChange={(e) => {
+                      setOtp(e.target.value);
+                    }}
+                    required
+                  />
+
+                  <button
+                    className="btn btn-primary"
+                    disabled={disabled}
+                    style={{ float: "right", margin: "auto 0" }}
+                    onClick={(e) => handleOtp(e)}
+                  >
+                    Send Otp
+                  </button>
+                </div>
                 <label htmlFor="password">Password:</label>
                 <input type="password" name="password"></input>
                 <div className="class">
                   <label>Which class are you studying?</label>
                   <label>
-                    <input type="radio" name="class" value={11} required />{" "}
+                    <input type="radio" name="class" value={11} required />
                     Class 11
                   </label>
                   <label>
-                    <input type="radio" name="class" value={12} required />{" "}
+                    <input type="radio" name="class" value={12} required />
                     Class 12
                   </label>
                 </div>
