@@ -40,7 +40,12 @@ export const MainSection = ({
   return (
     <div className="main">
       <div className="imageContainer">
-        <img src={img_name} className="object-fit-cover" alt="img" />
+        <img
+          src={img_name}
+          style={{ backgroundColor: "rgb(134, 142, 150)" }}
+          className="object-fit-cover"
+          alt="img"
+        />
       </div>
       <div className="textContainer">
         <h1>Chapter {chapNum}</h1>

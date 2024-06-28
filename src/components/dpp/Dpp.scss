@@ -1,3 +1,4 @@
+@import "../../app.scss";
 .dashBoard {
   background: linear-gradient(
       346deg,
@@ -29,6 +30,7 @@
     linear-gradient(90deg, rgb(0, 0, 0), rgb(0, 0, 0));
   width: 100vw;
   min-height: 100vh;
+  padding-bottom: 40px;
 
   .loader {
     display: flex;
@@ -46,17 +48,32 @@
     padding-top: 40px;
   }
 
-  .container {
+  .containerMain {
     width: 80%;
-    color: white;
     margin: auto;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    row-gap: 30px;
+    flex-wrap: wrap;
+    .container {
+      width: 40%;
+      color: white;
+      border: 1px solid white;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 0;
 
-    h3 {
-      margin-top: 40px;
-      font-size: 1.5rem;
-    }
-    h4 {
-      font-size: 1.2rem;
+      @include mobile {
+        width: 100%;
+      }
+
+      h3 {
+        font-size: 2rem;
+      }
+      h4 {
+        font-size: 1.5rem;
+      }
     }
   }
 }

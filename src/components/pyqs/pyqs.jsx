@@ -150,21 +150,22 @@ export const Pyqs = ({ url }) => {
               There is no content uploaded yet, to display here.
             </h1>
           )}
-
-          {data.map((item) => {
-            return (
-              <div key={item.chapter} className="container">
-                <h3>Chapter {item.chapter}</h3>
-                <h4>{item.title}</h4>
-                <button
-                  className="btn btn-primary"
-                  onClick={() => handleDownload(item.fileName)}
-                >
-                  Download
-                </button>
-              </div>
-            );
-          })}
+          <div className="containerMain">
+            {data.map((item) => {
+              return (
+                <div key={item.chapter} className="container">
+                  <h3>Chapter {item.chapter}</h3>
+                  <h4>{item.title}</h4>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => handleDownload(item.fileName)}
+                  >
+                    Download
+                  </button>
+                </div>
+              );
+            })}
+          </div>
         </>
       )}
     </div>
