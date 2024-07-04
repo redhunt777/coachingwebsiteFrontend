@@ -8,23 +8,7 @@ export const Login = ({ url }) => {
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
 
-  const [loader, setLoader] = useState(true);
-
-  useEffect(() => {
-    setLoader(true);
-    axios
-      .get(`${url}/auth/verify`)
-      .then((res) => {
-        setLoader(false);
-        if (res.data.status) {
-          navigate("/notes");
-        }
-      })
-      .catch((err) => {
-        setLoader(false);
-        console.log(err);
-      });
-  }, []);
+  const [loader, setLoader] = useState(false);
 
   const handleJoin = () => {
     navigate("/signup");

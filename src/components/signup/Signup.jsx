@@ -56,7 +56,7 @@ export const Signup = ({ url }) => {
   const navigate = useNavigate();
   const [selectedBoard, setSelectedBoard] = useState("");
   const [selectedMedium, setSelectedMedium] = useState("english");
-  const [loader, setLoader] = useState(true);
+  const [loader, setLoader] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
@@ -91,22 +91,6 @@ export const Signup = ({ url }) => {
         alert("Something went wrong! Please try again.");
       });
   };
-
-  useEffect(() => {
-    setLoader(true);
-    axios
-      .get(`${url}/auth/verify`)
-      .then((res) => {
-        setLoader(false);
-        if (res.data.status) {
-          navigate("/notes");
-        }
-      })
-      .catch((err) => {
-        setLoader(false);
-        console.log(err);
-      });
-  }, []);
 
   const handleJoin = () => {
     navigate("/login");
